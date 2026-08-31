@@ -1,17 +1,9 @@
 import { test, expect } from '../../src/core/fixtures/testFixtures';
-import { UserBuilder } from '../../src/business/builders/UserBuilder';
-import { DashboardPage } from '../../src/business/pages/DashboardPage';
 
 test.describe('ReportPortal Dashboard Flows', () => {
   
-  test.beforeEach(async ({ loginPage, dashboardPage }) => {
-    const defaultUser = new UserBuilder().asDefault().build();
-    
-    await test.step('Precondition: Authenticate as Default user', async () => {
-      await loginPage.navigate();
-      await loginPage.login(defaultUser);
-      await dashboardPage.navigate();
-    });
+  test.beforeEach(async ({ dashboardPage }) => {
+    await dashboardPage.navigate(); 
   });
 
   test('Should display core dashboard elements upon load', async ({ dashboardPage, page }) => {

@@ -1,9 +1,11 @@
 import { test, expect } from '../../src/core/fixtures/testFixtures';
 import { UserBuilder } from '../../src/business/builders/UserBuilder';
 
+test.use({ storageState: { cookies: [], origins: [] } });
+
 test.describe('ReportPortal Authentication Flows', () => {
 
-  test('Should login successfully with valid admin credentials', async ({ loginPage, log, page }) => {
+  test('Should login successfully with valid user credentials', async ({ loginPage, log, page }) => {
     const defaultUser = new UserBuilder().asDefault().build();
     
     await test.step('Navigate to the application and login', async () => {
