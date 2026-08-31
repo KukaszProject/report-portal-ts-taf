@@ -1,22 +1,35 @@
 import { test, expect } from '../../src/core/fixtures/testFixtures';
-import { User } from '../../src/business/models/User';
+import { UserBuilder } from '../../src/business/builders/UserBuilder';
 
 test.describe('ReportPortal Authentication Flows', () => {
-  
-  const defaultUser: User = { 
-    username: 'default', 
-    password: '1q2w3e',
-    email: 'admin@reportportal.io',
-    role: 'ADMIN'
-  };
 
   test('Should login successfully with valid admin credentials', async ({ loginPage, log, page }) => {
-    log.info('Starting valid login test scenario');
+    const defaultUser = new UserBuilder().asDefault().build();
     
-    await loginPage.navigate();
-    await loginPage.login(defaultUser);
+    await test.step('Navigate to the application and login', async () => {
+      await loginPage.navigate();
+      await loginPage.login(defaultUser);
+    });
     
-    await expect(page).toHaveURL(/.*#default_personal*/);
-    log.info('Login successful');
+    await test.step('Verify successful navigation to the dashboard', async () => {
+      await expect(page).toHaveURL(/.*#default_personal\/.*/);
+    });
+  });
+
+    test('Should show error with invalid credentials', async ({ loginPage, log }) => {
+
+    const invalidUser = new UserBuilder()
+      .asDefault()
+      .withPassword('WrongPassword123!')
+      .build();
+
+    await test.step('Attempt login with invalid password', async () => {
+      await loginPage.navigate();
+      await loginPage.login(invalidUser);
+    });
+    
+    await test.step('Verify invalid credentials error message is displayed', async () => {
+      await expect(loginPage.getErrorMessage()).toBeVisible();
+    });
   });
 });
