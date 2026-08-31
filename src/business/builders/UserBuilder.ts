@@ -11,14 +11,14 @@ export class UserBuilder {
   };
 
   /**
-   * Configures the user as the system Administrator, pulling 
+   * Configures the user as default user, pulling 
    * secure credentials from the current environment variables.
    */
   asDefault(): this {
     this.user.username = EnvironmentConfig.DEFAULT_USERNAME;
     this.user.password = EnvironmentConfig.DEFAULT_PASSWORD;
-    this.user.role = 'ADMIN';
-    this.user.email = 'admin@reportportal.io'; // Assuming static admin email
+    this.user.role = 'USER';
+    this.user.email = 'user@reportportal.io';
     return this;
   }
 
