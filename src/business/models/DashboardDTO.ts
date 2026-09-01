@@ -8,3 +8,11 @@ export interface DashboardResponse {
   id: number;
   message?: string;
 }
+
+export interface DashboardDetails {
+  id: number;
+  name: string;
+  description: string;
+  owner: string;
+  widgets?: any[];
+}

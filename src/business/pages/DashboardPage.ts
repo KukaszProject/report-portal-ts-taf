@@ -48,8 +48,6 @@ export class DashboardPage extends BasePage {
   }
 
   getDashboardByName(dashboardName: string): Locator {
-    // HYBRID FIX: We scope the search strictly inside the dashboard grid container.
-    // This ignores hidden header links or mobile menus, eliminating the need for .first()
     return this.dashboardGrid.getByText(dashboardName, { exact: true });
   }
 }
