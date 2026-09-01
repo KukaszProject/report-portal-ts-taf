@@ -1,6 +1,10 @@
 import { APIRequestContext, expect } from '@playwright/test';
 import { EnvironmentConfig } from '../../core/config/EnvironmentConfig';
-import { CreateDashboardRequest, DashboardResponse } from '../models/DashboardDTO';
+import {
+  CreateDashboardRequest,
+  DashboardDetails,
+  DashboardResponse,
+} from '../models/DashboardDTO';
 import { logger } from '../../core/logger/logger';
 
 export class DashboardApiService {
@@ -12,6 +16,17 @@ export class DashboardApiService {
   };
 
   constructor(private request: APIRequestContext) {}
+
+  async getDashboard(dashboardId: number): Promise<DashboardDetails> {
+    logger.info(`API: Fetching dashboard with ID: ${dashboardId}`);
+    const response = await this.request.get(`${this.baseUrl}/dashboard/${dashboardId}`, {
+      headers: this.headers,
+    });
+
+    expect(response.status()).toBe(200);
+
+    return await response.json();
+  }
 
   async createDashboard(payload: CreateDashboardRequest): Promise<number> {
     logger.info(`API: Creating dashboard with name: ${payload.name}`);
