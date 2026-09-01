@@ -12,11 +12,13 @@ export class DashboardPage extends BasePage {
   constructor(page: Page) {
     super(page, '/ui/#default_personal/dashboard');
 
-    this.addNewDashboardBtn = page.locator('button:not([disabled])', { hasText: 'Add New Dashboard' });
+    this.addNewDashboardBtn = page.locator('button:not([disabled])', {
+      hasText: 'Add New Dashboard',
+    });
     this.pageTitle = page.getByRole('heading', { name: /dashboards/i });
     this.dashboardGrid = page.locator('.grid-container, [class*="gridRow"]');
     this.userAvatar = page.getByRole('img', { name: 'avatar' });
-    this.addDashboardModalTitle = page.locator('#modal-root').getByText('Add New Dashboard')
+    this.addDashboardModalTitle = page.locator('#modal-root').getByText('Add New Dashboard');
   }
 
   async clickAddNewDashboard(): Promise<void> {

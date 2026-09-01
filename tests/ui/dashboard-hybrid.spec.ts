@@ -13,13 +13,16 @@ test.describe('Dashboard Hybrid Flows (API Setup / UI Assert)', () => {
     }
   });
 
-  test('Should display newly created dashboard in the UI', async ({ dashboardApiService, dashboardPage, page }) => {
-    
+  test('Should display newly created dashboard in the UI', async ({
+    dashboardApiService,
+    dashboardPage,
+    page,
+  }) => {
     await test.step('Arrange: Create a dashboard via API', async () => {
       createdDashboardId = await dashboardApiService.createDashboard({
         name: dashboardName,
         description: 'Dashboard created via automated API test setup',
-        share: false
+        share: false,
       });
     });
 
@@ -31,7 +34,7 @@ test.describe('Dashboard Hybrid Flows (API Setup / UI Assert)', () => {
     await test.step(`Assert: Dashboard "${dashboardName}" is visible`, async () => {
       // Use the newly created POM method to safely get the locator
       const targetDashboard = dashboardPage.getDashboardByName(dashboardName);
-      
+
       // Assert visibility
       await expect(targetDashboard).toBeVisible();
     });

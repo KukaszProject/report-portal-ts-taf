@@ -11,7 +11,7 @@ export class UserBuilder {
   };
 
   /**
-   * Configures the user as default user, pulling 
+   * Configures the user as default user, pulling
    * secure credentials from the current environment variables.
    */
   asDefault(): this {
