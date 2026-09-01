@@ -11,12 +11,12 @@ export class DashboardPage extends BasePage {
 
   constructor(page: Page) {
     super(page, '/ui/#default_personal/dashboard');
-    
-    this.addNewDashboardBtn = page.getByRole('button', { name: /add new dashboard/i });
+
+    this.addNewDashboardBtn = page.locator('button:not([disabled])', { hasText: 'Add New Dashboard' });
     this.pageTitle = page.getByRole('heading', { name: /dashboards/i });
     this.dashboardGrid = page.locator('.grid-container, [class*="gridRow"]');
     this.userAvatar = page.getByRole('img', { name: 'avatar' });
-    this.addDashboardModalTitle = page.locator('#modal-root').getByText('Add New Dashboard');
+    this.addDashboardModalTitle = page.locator('#modal-root').getByText('Add New Dashboard')
   }
 
   async clickAddNewDashboard(): Promise<void> {
@@ -43,5 +43,11 @@ export class DashboardPage extends BasePage {
 
   getAddDashboardModalTitle(): Locator {
     return this.addDashboardModalTitle;
+  }
+
+  getDashboardByName(dashboardName: string): Locator {
+    // HYBRID FIX: We scope the search strictly inside the dashboard grid container.
+    // This ignores hidden header links or mobile menus, eliminating the need for .first()
+    return this.dashboardGrid.getByText(dashboardName, { exact: true });
   }
 }

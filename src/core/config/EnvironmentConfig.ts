@@ -15,4 +15,7 @@ export class EnvironmentConfig {
 
   public static readonly DEFAULT_USERNAME = process.env.DEFAULT_USERNAME || 'default';
   public static readonly DEFAULT_PASSWORD = process.env.DEFAULT_PASSWORD;
+
+  public static readonly PROJECT_NAME = process.env.PROJECT_NAME || 'demo_personal';
+  public static readonly API_KEY = process.env.API_KEY || 'api_token';
 }
