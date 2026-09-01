@@ -14,8 +14,8 @@ export class LoginPage extends BasePage {
     this.usernameInput = page.locator('input[name="login"]');
     this.passwordInput = page.locator('input[name="password"]');
     this.loginButton = page.locator('button[type="submit"]');
-    this.errorMessage = page.getByText("An error occurred", { exact: false }).first();
-}
+    this.errorMessage = page.getByText('An error occurred', { exact: false }).first();
+  }
 
   async login(user: User): Promise<void> {
     logger.info(`Logging in with user: ${user.username}`);

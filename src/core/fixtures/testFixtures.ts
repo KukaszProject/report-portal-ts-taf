@@ -21,9 +21,9 @@ export const test = base.extend<AppFixtures>({
   dashboardPage: async ({ page }, use) => {
     await use(new DashboardPage(page));
   },
-dashboardApiService: async ({ request }, use) => {
+  dashboardApiService: async ({ request }, use) => {
     await use(new DashboardApiService(request));
-  }
+  },
 });
 
 export { expect } from '@playwright/test';
